@@ -1,0 +1,36 @@
+{% extends 'layout/main.html' %}
+
+
+
+{% block title %}
+    jobs
+{% endblock title %}
+
+{% block content %}
+{% include 'layout/navbar.html' %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+        <div class="col-md-7 my-4">
+            <form class="form-inline">
+                <input style="width: 87%" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button  class="btn btn-primary my-2 my-sm-0" style="background-color: #A6B4E4; border: none;" type="submit">Search</button>
+            </form>
+        </div>
+               {% for job in jobs %}
+                <div class="col-md-7">
+                    <a href="{% url 'home' %}" style="text-decoration:none; color:black">
+                                <div class="card py-3" style="width: 100%; box-shadow:  1px 1px 10px #e3e3e3, 
+                        -1px -1px 10px #ffffff;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{job.judul}}</h5>
+                                <h6 class="mb-3" style="color: #A6B4E4;">{{job.kantor}}</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">{{job.lokasi}}</h6>
+                                <p class="card-text">{{job.deskripsi_singkat}}</p>
+                            </div>
+                            </div>
+                    </a>
+                </div>
+               {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

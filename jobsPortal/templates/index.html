@@ -1,0 +1,23 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+ {% block title %} home {% endblock title %} 
+ {%block content %} 
+ 
+ {% include 'layout/navbar.html' %}
+<div class="container d-flex align-items-center" style="height: 75vh;">
+  <div class="row">
+  <div class="col-md-7" style="margin-top: 100px">
+      <h1>
+        <b>are you looking for jobs? <br />
+          thats why <span style="color:#A6B4E4;">we are here!</span></b>
+      </h1>
+
+      <a class="btn btn-primary mt-2" style="background-color: #A6B4E4; border:none; color:white;">get jobs</a>
+    </div>
+    <div class="col-md-5">
+        <img width="450"  src="{% static 'img/home2.png' %}" alt="">
+    </div>
+    
+  </div>
+</div>
+{% endblock content %}
