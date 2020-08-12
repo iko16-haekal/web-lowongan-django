@@ -13,3 +13,12 @@ def jobs(request):
 
     return render(request, "jobs.html", konteks)
 
+
+def detail(request, slug):
+    job = Job.objects.filter(slug=slug)
+    for jobs in job:
+        slug = jobs.slug
+
+    konteks = {"job": job, "slug": slug}
+    return render(request, "detail.html", konteks)
+
