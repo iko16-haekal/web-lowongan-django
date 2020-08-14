@@ -1,0 +1,28 @@
+{% extends 'layout/main.html' %}
+
+{% block title %}
+    {{slug}}
+{% endblock title %}
+
+{% block content %}
+{% include 'layout/navbar.html' %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+           <div class="col-md-6">
+             <div class="card">
+                <div class="card-header">lamar</div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data" method="post">
+                        <div class="form-group">
+                            {{form.as_p}}
+
+                            <button type="submit" class="btn btn-primary">apply</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+           </div>
+        </div>
+    </div>
+
+{% endblock content %}

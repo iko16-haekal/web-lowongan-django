@@ -18,7 +18,7 @@
                         {{job.deskripsi | safe}}
 
                         
-                             <a href="#"  class="btn btn-primary ml-1 mt-3">apply now</a>
+                             <a href="{% url 'lamarJobs' job.slug %}"  class="btn btn-primary ml-1 mt-3">apply now</a>
                           
                     {% endfor %}
                 </div>

@@ -9,7 +9,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="home"),
     path("jobs/", jobs, name="jobs"),
-    path("jobs/<slug:slug>/", detail, name="detailJobs"),
+    path("jobs/detail/<slug:slug>/", detail, name="detailJobs"),
+    path("jobs/lamar/<slug:slug>/", lamar, name="lamarJobs"),
     path("summernote/", include("django_summernote.urls")),
 ]
 
