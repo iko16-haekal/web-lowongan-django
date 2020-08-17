@@ -12,15 +12,17 @@
         <div class="row justify-content-center">
         <div class="col-md-7 my-4">
             <form class="form-inline">
-                <input style="width: 87%" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button  class="btn btn-primary my-2 my-sm-0" style="background-color: #A6B4E4; border: none;" type="submit">Search</button>
+                <input style="width: 87%; box-shadow:  1px 1px 4px #e3e3e3, 
+                        -1px -1px 4px #ffffff; border: none;" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button  class="btn btn-primary my-2 my-sm-0" style="box-shadow:  1px 1px 4px #e3e3e3, 
+                        -1px -1px 4px #ffffff; background-color: #A6B4E4; border: none;" type="submit">Search</button>
             </form>
         </div>
                {% for job in jobs %}
                 <div class="col-md-7">
                     <a href="{% url 'detailJobs' job.slug %}" style="text-decoration:none; color:black">
-                                <div class="card py-3 mb-2" style="width: 100%; box-shadow:  1px 1px 10px #e3e3e3, 
-                        -1px -1px 10px #ffffff;">
+                                <div class="card py-3 mb-2" style="width: 100%; box-shadow:  1px 1px 5px #e3e3e3, 
+                        -1px -1px 5px #ffffff; border:none;">
                             <div class="card-body">
                                 <h5 class="card-title">{{job.judul}}</h5>
                                 <h6 class="mb-3" style="color: #A6B4E4;">{{job.kantor}}</h6>

@@ -28,7 +28,9 @@ class Lamaran(models.Model):
     cv = models.FileField(
         upload_to="cv/",
         validators=[
-            FileExtensionValidator(allowed_extensions=[".pdf", ".doc", ".docx",])
+            FileExtensionValidator(
+                allowed_extensions=[".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"]
+            )
         ],
     )
 
