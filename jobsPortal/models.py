@@ -7,7 +7,7 @@ from django.core.validators import FileExtensionValidator
 
 class Job(models.Model):
     judul = models.CharField(max_length=200, unique=True)
-    slug = AutoSlugField(populate_from="judul")
+    slug = AutoSlugField(populate_from="judul", unique=True, blank=True)
     kantor = models.CharField(max_length=200)
     lokasi = models.CharField(max_length=200)
     deskripsi_singkat = models.TextField()
@@ -20,19 +20,20 @@ class Job(models.Model):
 
 
 class Lamaran(models.Model):
-    judul_job = models.CharField(max_length=200)  # hidden
-    slug_job = models.CharField(max_length=200)  # hidden
+    judul = models.ForeignKey(Job, on_delete=models.CASCADE)  # hidden
     user = models.CharField(max_length=200)  # hidden
     telepon = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200)
+    email = models.EmailField(max_length=200)  # hidden
+
     cv = models.FileField(
         upload_to="cv/",
         validators=[
             FileExtensionValidator(
-                allowed_extensions=[".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"]
+                allowed_extensions=["pdf", "doc", "docx", "jpg", "jpeg", "png"]
             )
         ],
     )
+    status = models.CharField(max_length=200, default="belum dilihat")
 
     def __str__(self):
         return self.judul_job

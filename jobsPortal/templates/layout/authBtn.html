@@ -1,15 +1,23 @@
-
-            {% if user.is_authenticated %}
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{user}}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
-                </div>
-            </li>
-              {% else %}
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'login' %}">login</a>
-                </li>
-            {% endif %}
+{% if user.is_authenticated %}
+<li class="nav-item dropdown active">
+  <a
+    class="nav-link dropdown-toggle"
+    href="#"
+    id="navbarDropdown"
+    role="button"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    {{user}}
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="{% url 'my' %}">lamaran saya</a>
+    <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
+  </div>
+</li>
+{% else %}
+<li class="nav-item">
+  <a class="nav-link active" href="{% url 'login' %}">login</a>
+</li>
+{% endif %}

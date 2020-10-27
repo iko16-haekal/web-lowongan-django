@@ -1,0 +1,28 @@
+{% extends 'layout/admin-main.html' %}
+
+{% block content %}
+     <div class="row mb-5 justify-content-center">
+        <div class="col-md-7">
+            <div class="card" style="width: 100%; box-shadow:  1px 1px 5px #e3e3e3, 
+                        -1px -1px 5px #ffffff; border:none;">
+                <div class="card-body">
+                    {% for job in jobs %}
+                    <h2>{{job.judul}}</h2>
+                    <br>
+                        {{job.deskripsi | safe}}
+
+                        
+                           
+                                <a href="{% url 'adminEditJob' job.slug %}"  style="width:100%" class="btn btn-primary text-center mt-3">ubah</a>
+                                <br>
+                               <form action="{% url 'adminDeleteJob' job.id %}" method="post">
+                               {% csrf_token %}
+                                     <button type="submit" style="width:100%" class="btn btn-danger text-center mt-3">hapus</button>
+                               </form>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,5 +1,5 @@
 {% extends 'layout/main.html' %}
-
+{% load humanize %}
 
 
 {% block title %}
@@ -13,14 +13,23 @@
         <div class="col-md-7 my-4">
             <form class="form-inline">
                 <input style="width: 87%; box-shadow:  1px 1px 4px #e3e3e3, 
-                        -1px -1px 4px #ffffff; border: none;" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        -1px -1px 4px #ffffff; border: none;" class="form-control mr-sm-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
                 <button  class="btn btn-primary my-2 my-sm-0" style="box-shadow:  1px 1px 4px #e3e3e3, 
                         -1px -1px 4px #ffffff; background-color: #A6B4E4; border: none;" type="submit">Search</button>
             </form>
-        </div>
+        </div>  {% if messages %}
+                <div class="col-md-7">
+                        {% for msg in messages %}
+                    <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{msg.message}}
+                    </div>
+                {% endfor %}
+                </div>
+        {% endif %}
                {% for job in jobs %}
                 <div class="col-md-7">
-                    <a href="{% url 'detailJobs' job.slug %}" style="text-decoration:none; color:black">
+                    <a href="{% url 'detailJobs' job.id job.slug %}" style="text-decoration:none; color:black">
                                 <div class="card py-3 mb-2" style="width: 100%; box-shadow:  1px 1px 5px #e3e3e3, 
                         -1px -1px 5px #ffffff; border:none;">
                             <div class="card-body">
@@ -28,6 +37,7 @@
                                 <h6 class="mb-3" style="color: #A6B4E4;">{{job.kantor}}</h6>
                                 <h6 class="card-subtitle mb-2 text-muted">{{job.lokasi}}</h6>
                                 <p class="card-text">{{job.deskripsi_singkat}}</p>
+                                 <h6 style="position:absolute; bottom: 0;" class="card-subtitle mb-3 text-muted small">{{job.created_at|naturaltime}}</h6>
                             </div>
                             </div>
                     </a>

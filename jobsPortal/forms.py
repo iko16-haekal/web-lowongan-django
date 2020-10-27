@@ -1,9 +1,10 @@
 from django.forms import ModelForm
 from django import forms
-from jobsPortal.models import Lamaran
+from jobsPortal.models import Lamaran, Job
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 
 class SignUpForm(UserCreationForm, ModelForm):
@@ -33,12 +34,28 @@ class FormLamar(ModelForm):
         fields = "__all__"
 
         widgets = {
-            "judul_job": forms.HiddenInput({"class": "form-control"}),
-            "slug_job": forms.HiddenInput({"class": "form-control"}),
-            "user": forms.HiddenInput({"class": "form-control"}),
+            "judul": forms.TextInput({"class": "form-control", "type": "hidden"}),
+            "user": forms.TextInput({"class": "form-control", "type": "hidden"}),
+            "status": forms.TextInput({"class": "form-control", "type": "hidden"}),
             "telepon": forms.NumberInput({"class": "form-control"}),
-            "email": forms.HiddenInput({"class": "form-control"}),
+            "email": forms.EmailInput({"class": "form-control", "type": "hidden"}),
             "cv": forms.FileInput({"class": "form-control-file"}),
+        }
+
+
+class FormJob(forms.Form, ModelForm):
+    deskripsi = forms.CharField(widget=SummernoteWidget())
+    slug = forms.CharField(widget=forms.HiddenInput(), label="", required=False)
+
+    class Meta:
+        model = Job
+        fields = ["judul", "kantor", "lokasi", "deskripsi_singkat", "deskripsi", "slug"]
+        widgets = {
+            "judul": forms.TextInput({"class": "form-control"}),
+            "kantor": forms.TextInput({"class": "form-control"}),
+            "lokasi": forms.TextInput({"class": "form-control"}),
+            "deskripsi_singkat": forms.Textarea({"class": "form-control"}),
+            "slug": forms.HiddenInput({"type": "hidden"}),
         }
 
 
