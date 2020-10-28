@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 
+
 @login_required(login_url=settings.LOGIN_URL)
 def Admin(request):
     if not request.user.is_superuser or not request.user.is_staff:
