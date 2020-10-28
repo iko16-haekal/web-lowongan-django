@@ -18,12 +18,13 @@ urlpatterns = [
     path("admin/jobs/detail/<slug:slug>/", AdminDetailJob, name="adminDetailJobs"),
     path("admin/jobs/ubah/<slug:slug>/", AdminEditJob, name="adminEditJob"),
     path("admin/jobs/hapus/<int:id>/", AdminDeleteJob, name="adminDeleteJob"),
+    path("admin/pelamar", Pelamar, name="pelamar"),
     ################################### INDEX VIEWS #########################################
     path("", index, name="home"),
     path("my/", myLamaran, name="my"),
     path("jobs/", jobs, name="jobs"),
     path("jobs/detail/<int:id>/<slug:slug>", detail, name="detailJobs"),
-    path("jobs/lamar/<slug:slug>/", lamar, name="lamarJobs"),
+    path("jobs/lamar/<slug:slug>/<int:id>", lamar, name="lamarJobs"),
     ################################### AUTH VIEWS #########################################
     path("signup/", signup, name="signup"),
     path("login/", LoginView.as_view(authentication_form=loginForm), name="login"),

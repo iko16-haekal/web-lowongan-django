@@ -33,7 +33,6 @@ def detail(request, id, slug):
 
 @login_required(login_url=settings.LOGIN_URL)
 def lamar(request, id, slug):
-
     if request.POST:
         form = FormLamar(request.POST, request.FILES)
         if form.is_valid():

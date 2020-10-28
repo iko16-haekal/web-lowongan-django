@@ -80,3 +80,19 @@ def AdminDeleteJob(request, id):
     else:
         return redirect("/admin/")
 
+
+@login_required(login_url=settings.LOGIN_URL)
+def Pelamar(request):
+    if not request.user.is_superuser or not request.user.is_staff:
+        return redirect("/")
+    if request.POST:
+        lamaran = Lamaran.objects.get(id=request.POST.get("id"))
+        lamaran.status = request.POST.get("status")
+        lamaran.save()
+        return redirect("/admin/pelamar")
+    konteks = {
+        "lamaran": Lamaran.objects.filter(status="belum dilihat").order_by("-id"),
+        "diterima": Lamaran.objects.filter(status="diterima").order_by("-id"),
+        "dilihat": Lamaran.objects.filter(status="dilihat").order_by("-id"),
+    }
+    return render(request, "sbadmin/pelamar.html", konteks)

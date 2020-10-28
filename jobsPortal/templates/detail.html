@@ -22,7 +22,7 @@
                              {% if exist %}
                                 <button style="width:100%" class="btn btn-success text-center mt-3">anda sudah melamar</button>
                                 {% else %}
-                                <a href="{% url 'lamarJobs' job.slug %}"  style="width:100%" class="btn btn-primary text-center mt-3">lamar sekarang</a>
+                                <a href="{% url 'lamarJobs' job.slug job.id %}"  style="width:100%" class="btn btn-primary text-center mt-3">lamar sekarang</a>
                              {% endif %}
                           
                     {% endfor %}

@@ -1,0 +1,141 @@
+{% extends 'layout/admin-main.html' %}
+
+{% block content %}
+    <div id="app">
+        <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="pb-2">pelamar</h2>
+                <div class="mb-3">
+                    <button @click.prevent="setActive('belum')" class="btn btn-primary btn-sm">belum dilihat</button>
+                    <button  @click.prevent="setActive('dilihat')" class="btn btn-info btn-sm">list dilihat</button>
+                    <button  @click.prevent="setActive('diterima')"  class="btn btn-success btn-sm">list diterima</button>
+                </div>
+                <div class="accordion" id="accordion">
+                
+                    <div v-if="active == 'belum'">
+                        {% for lamaran in lamaran %}
+                    <div class="card mb-1" style="border: none;">
+                        <div class="card-header" id="headingOne" style="background-color: white;">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left " type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                               {{lamaran.user}}
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse{{ forloop.counter }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <p class="card-title">lowongan: {{lamaran.judul}}</p>
+                                <p class="card-subtitle">email: {{lamaran.email}}</p>
+                                <a href="{{lamaran.cv.url}}" download>download cv</a>
+                                <br>
+                               {% if lamaran.status != 'dilihat'  %}
+                                 <form class="d-inline mr-1" method="post">
+                                {% csrf_token %}
+                                    <input type="hidden" name="id" value={{lamaran.id}}>
+                                    <input type="hidden" name="status" value="dilihat">
+                                    <button  onClick="return confirm('konfirmasi')" type="submit" class="btn btn-info btn-sm mt-2">dilihat</button>
+                                </form>
+                               {% endif %}
+                                 <form class="d-inline mr-1" method="post">
+                                {% csrf_token %}
+                                    <input type="hidden" name="id" value={{lamaran.id}}>
+                                    <input type="hidden" name="status" value="ditolak">
+                                    <button onClick="return confirm('konfirmasi')" type="submit" class="btn btn-danger btn-sm mt-2">tolak</button>
+                                </form>
+                                 <form class="d-inline" method="post">
+                                 {% csrf_token %}
+                                    <input type="hidden" name="id" value={{lamaran.id}}>
+                                    <input type="hidden" name="status" value="diterima">
+                                    <button onClick="return confirm('konfirmasi')" type="submit" class="btn btn-success btn-sm mt-2">diterima</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+
+                     <div v-if="active == 'diterima'">
+                        {% for diterima in diterima %}
+                    <div class="card mb-1" style="border: none;">
+                        <div class="card-header" id="headingOne" style="background-color: white;">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left " type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                               {{diterima.user}}
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse{{ forloop.counter }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <p class="card-title">lowongan: {{diterima.judul}}</p>
+                                <p class="card-subtitle">email: {{diterima.email}}</p>
+                                <a href="{{diterima.cv.url}}" download>download cv</a>
+                                <br>
+                               
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+
+                    <div v-if="active == 'dilihat'">
+                        {% for dilihat in dilihat %}
+                    <div class="card mb-1" style="border: none;">
+                        <div class="card-header" id="headingOne" style="background-color: white;">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left " type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                               {{dilihat.user}}
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse{{ forloop.counter }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <p class="card-title">lowongan: {{dilihat.judul}}</p>
+                                <p class="card-subtitle">email: {{dilihat.email}}</p>
+                                <a href="{{dilihat.cv.url}}" download>download cv</a>
+                                <br>
+                               
+                                 <form class="d-inline mr-1" method="post">
+                                {% csrf_token %}
+                                    <input type="hidden" name="id" value={{dilihat.id}}>
+                                    <input type="hidden" name="status" value="ditolak">
+                                    <button onClick="return confirm('konfirmasi')" type="submit" class="btn btn-danger btn-sm mt-2">tolak</button>
+                                </form>
+                                 <form class="d-inline" method="post">
+                                 {% csrf_token %}
+                                    <input type="hidden" name="id" value={{dilihat.id}}>
+                                    <input type="hidden" name="status" value="dilihat">
+                                    <button onClick="return confirm('konfirmasi')" type="submit" class="btn btn-success btn-sm mt-2">diterima</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+     </div>
+    </div>
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+        const vue = new Vue({
+            el: '#app',
+            data: {
+                active: "belum"
+            },
+            methods: {
+                setActive: function(set) {
+                    this.active = set;
+                    
+                }
+            }
+        });
+    </script>
+{% endblock content %}
